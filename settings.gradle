@@ -1,0 +1,18 @@
+pluginManagement
+{
+	repositories
+	{
+		maven
+		{
+			name = 'Fabric'
+			url = 'https://repository.hanbings.io/proxy'
+		}
+		maven
+		{
+			name = 'Fabric-Mirror'
+			url = 'https://maven.fabricmc.net/'
+		}
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
