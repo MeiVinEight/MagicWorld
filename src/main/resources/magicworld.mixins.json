@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"package": "org.mve.mw.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"AnvilScreenHandlerMixin",
+		"ItemStackMixin",
+		"PersistentProjectileEntityMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

@@ -1,0 +1,42 @@
+{
+	"schemaVersion": 1,
+	"id": "magicworld",
+	"version": "${version}",
+	"name": "MagicWorld",
+	"description": "Welcome to \u00a7d\u00a7lMagicWorld",
+	"authors":
+	[
+		"MeiVinEight"
+	],
+	"contact":
+	{
+		"homepage": "https://github.com/MeiVinEight/MagicWorld",
+		"sources": "https://github.com/MeiVinEight/MagicWorld"
+	},
+	"license": "MIT",
+	"icon": "pack.png",
+	"environment": "*",
+	"accessWidener": "magicworld.accesswidener",
+	"entrypoints":
+	{
+		"main":
+		[
+			"org.mve.mw.MagicWorld"
+		]
+	},
+	"mixins":
+	[
+		"magicworld.mixins.json"
+	],
+	"depends":
+	{
+		"fabricloader": ">=0.16.9",
+		"minecraft": ">=1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests":
+	{
+		"another-mod": "*"
+	}
+}
