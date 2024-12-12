@@ -40,19 +40,19 @@ public class EnderBow
 		// MagicWorld.LOGGER.info("On collision {}", _this.getOwner());
 		Entity owner = entity.getOwner();
 		if (owner == null) return;
-		Supernova.LOGGER.info("Owner {}", owner);
+		// Supernova.LOGGER.info("Owner {}", owner);
 		// if (result.getType() == HitResult.Type.ENTITY && ((EntityHitResult) result).getEntity().equals(owner)) return;
 		ItemStack weapon = entity.getWeaponStack();
 		if (weapon == null) return;
-		Supernova.LOGGER.info("Weapon {}", weapon);
+		 // Supernova.LOGGER.info("Weapon {}", weapon);
 
 		NbtComponent component = weapon.get(DataComponentTypes.CUSTOM_DATA);
 		if (component == null) return;
-		Supernova.LOGGER.info("Component {}", component);
+		// Supernova.LOGGER.info("Component {}", component);
 		if (!component.contains(Supernova.KEY_MAGIC_WORLD)) return;
 		try
 		{
-			Supernova.LOGGER.info("UUID {}", component.nbt.get(Supernova.KEY_MAGIC_WORLD));
+			// Supernova.LOGGER.info("UUID {}", component.nbt.get(Supernova.KEY_MAGIC_WORLD));
 			NbtElement element = component.nbt.get(Supernova.KEY_MAGIC_WORLD);
 			if (element == null) return;
 			UUID uuid = NbtHelper.toUuid(element);
