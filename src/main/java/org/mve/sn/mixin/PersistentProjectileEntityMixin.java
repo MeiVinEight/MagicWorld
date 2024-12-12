@@ -1,8 +1,8 @@
-package org.mve.mw.mixin;
+package org.mve.sn.mixin;
 
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.util.hit.HitResult;
-import org.mve.mw.EnderBow;
+import org.mve.sn.EnderBow;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

@@ -1,32 +1,32 @@
 {
 	"schemaVersion": 1,
-	"id": "magicworld",
+	"id": "supernova",
 	"version": "${version}",
-	"name": "MagicWorld",
-	"description": "Welcome to \u00a7d\u00a7lMagicWorld",
+	"name": "Supernova",
+	"description": "Welcome to \u00a7b\u00a7lSupernova",
 	"authors":
 	[
 		"MeiVinEight"
 	],
 	"contact":
 	{
-		"homepage": "https://github.com/MeiVinEight/MagicWorld",
-		"sources": "https://github.com/MeiVinEight/MagicWorld"
+		"homepage": "https://github.com/MeiVinEight/Supernova",
+		"sources": "https://github.com/MeiVinEight/Supernova"
 	},
 	"license": "MIT",
 	"icon": "pack.png",
 	"environment": "*",
-	"accessWidener": "magicworld.accesswidener",
+	"accessWidener": "supernova.accesswidener",
 	"entrypoints":
 	{
 		"main":
 		[
-			"org.mve.mw.MagicWorld"
+			"org.mve.sn.Supernova"
 		]
 	},
 	"mixins":
 	[
-		"magicworld.mixins.json"
+		"supernova.mixins.json"
 	],
 	"depends":
 	{

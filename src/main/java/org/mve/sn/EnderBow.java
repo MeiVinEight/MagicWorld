@@ -1,4 +1,4 @@
-package org.mve.mw;
+package org.mve.sn;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
@@ -40,20 +40,20 @@ public class EnderBow
 		// MagicWorld.LOGGER.info("On collision {}", _this.getOwner());
 		Entity owner = entity.getOwner();
 		if (owner == null) return;
-		MagicWorld.LOGGER.info("Owner {}", owner);
+		Supernova.LOGGER.info("Owner {}", owner);
 		// if (result.getType() == HitResult.Type.ENTITY && ((EntityHitResult) result).getEntity().equals(owner)) return;
 		ItemStack weapon = entity.getWeaponStack();
 		if (weapon == null) return;
-		MagicWorld.LOGGER.info("Weapon {}", weapon);
+		Supernova.LOGGER.info("Weapon {}", weapon);
 
 		NbtComponent component = weapon.get(DataComponentTypes.CUSTOM_DATA);
 		if (component == null) return;
-		MagicWorld.LOGGER.info("Component {}", component);
-		if (!component.contains(MagicWorld.KEY_MAGIC_WORLD)) return;
+		Supernova.LOGGER.info("Component {}", component);
+		if (!component.contains(Supernova.KEY_MAGIC_WORLD)) return;
 		try
 		{
-			MagicWorld.LOGGER.info("UUID {}", component.nbt.get(MagicWorld.KEY_MAGIC_WORLD));
-			NbtElement element = component.nbt.get(MagicWorld.KEY_MAGIC_WORLD);
+			Supernova.LOGGER.info("UUID {}", component.nbt.get(Supernova.KEY_MAGIC_WORLD));
+			NbtElement element = component.nbt.get(Supernova.KEY_MAGIC_WORLD);
 			if (element == null) return;
 			UUID uuid = NbtHelper.toUuid(element);
 			if (!EnderBow.UID.equals(uuid)) return;

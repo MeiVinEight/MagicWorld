@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "org.mve.mw.mixin",
+	"package": "org.mve.sn.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"AnvilScreenHandlerMixin",
