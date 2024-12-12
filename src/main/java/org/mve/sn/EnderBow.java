@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.network.packet.s2c.play.ParticleS2CPacket;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -18,6 +19,9 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TeleportTarget;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +33,7 @@ public class EnderBow
 	 * [-1632247198, 89399974, 544791038, 129374438]
 	 */
 	private static final UUID UID = UUID.fromString("9EB5E262-0554-22A6-2078-D9FE07B618E6");
+	private static final MethodHandle PACK_PARTICLE;
 
 	public static void collision(ProjectileEntity entity, HitResult result)
 	{
@@ -83,9 +88,51 @@ public class EnderBow
 
 	private static void particle(ServerWorld world, Entity entity)
 	{
+		if (PACK_PARTICLE == null) return;
 		for (int i = 0; i < 2; i++)
 		{
-			ParticleS2CPacket packet = new ParticleS2CPacket(
+			ParticleS2CPacket packet;
+			try
+			{
+				if (PACK_PARTICLE.type().parameterCount() == 10)
+				{
+					packet = (ParticleS2CPacket) PACK_PARTICLE.invokeExact(
+						(ParticleEffect) ParticleTypes.PORTAL,
+						true,
+						entity.getParticleX(0.5),
+						entity.getRandomBodyY() - 0.25,
+						entity.getParticleZ(0.5),
+						(float) ((entity.random.nextDouble() - 0.5) * 2.0),
+						(float) (-entity.random.nextDouble()),
+						(float) ((entity.random.nextDouble() - 0.5) * 2.0),
+						1F,
+						100
+					);
+				}
+				else
+				{
+					packet = (ParticleS2CPacket) PACK_PARTICLE.invokeExact(
+						(ParticleEffect) ParticleTypes.PORTAL,
+						true,
+						true,
+						entity.getParticleX(0.5),
+						entity.getRandomBodyY() - 0.25,
+						entity.getParticleZ(0.5),
+						(float) ((entity.random.nextDouble() - 0.5) * 2.0),
+						(float) (-entity.random.nextDouble()),
+						(float) ((entity.random.nextDouble() - 0.5) * 2.0),
+						1F,
+						100
+					);
+				}
+			}
+			catch (Throwable t)
+			{
+				Supernova.LOGGER.warn("Cannot construct particle packet", t);
+				return;
+			}
+			/*
+			new ParticleS2CPacket(
 				ParticleTypes.PORTAL,
 				true,
 				entity.getParticleX(0.5),
@@ -97,6 +144,7 @@ public class EnderBow
 				1,
 				100
 			);
+			*/
 			List<ServerPlayerEntity> players = world.getPlayers();
 			for (ServerPlayerEntity player : players)
 			{
@@ -118,5 +166,28 @@ public class EnderBow
 			);
 			*/
 		}
+	}
+
+	static
+	{
+		MethodHandle particle = null;
+		MethodHandles.Lookup lookup = MethodHandles.lookup();
+		Constructor<?>[] ctors = ParticleS2CPacket.class.getConstructors();
+		for (Constructor<?> ctor : ctors)
+		{
+			if ((ctor.getParameterCount() > 0) && (ctor.getParameterTypes()[0] == ParticleEffect.class))
+			{
+				try
+				{
+					particle = lookup.unreflectConstructor(ctor);
+				}
+				catch (IllegalAccessException e)
+				{
+					Supernova.LOGGER.warn("Cannot unreflect constructor {}", ctor, e);
+				}
+				break;
+			}
+		}
+		PACK_PARTICLE = particle;
 	}
 }
