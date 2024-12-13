@@ -3,6 +3,7 @@ package org.mve.sn;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtElement;
@@ -73,17 +74,28 @@ public class EnderBow
 		double prevZ = owner.getZ();
 		ServerWorld world = (ServerWorld) entity.getWorld();
 		Vec3d pos = result.getPos();
-		Vec3d vel = new Vec3d(0, 0, 0);
-		float yaw = owner.getYaw();
-		float pit = owner.getPitch();
-		EnderBow.particle(world, owner);
-		owner.teleportTo(new TeleportTarget(world, pos, vel, yaw, pit, (e) -> {}));
 
 		SoundCategory category = SoundCategory.HOSTILE;
 		SoundEvent sound = SoundEvents.ENTITY_ENDERMAN_TELEPORT;
+
 		world.playSound(null, prevX, prevY, prevZ, sound, category, 1.0F, 1.0F);
+		EnderBow.particle(world, owner);
+
+		EnderBow.teleport(world, owner, pos);
+
 		world.playSound(null, pos.x, pos.y, pos.z, sound, category, 1.0F, 1.0F);
 		EnderBow.particle(world, entity);
+	}
+
+	private static void teleport(ServerWorld world, Entity entity, Vec3d pos)
+	{
+		TeleportTarget target = new TeleportTarget(world, pos, Vec3d.ZERO, entity.getYaw(), entity.getPitch(), (e) -> {});
+		if (entity instanceof PlayerEntity)
+		{
+			entity.stopRiding();
+		}
+		while (entity.getVehicle() != null) entity = entity.getVehicle();
+		entity.teleportTo(target);
 	}
 
 	private static void particle(ServerWorld world, Entity entity)
