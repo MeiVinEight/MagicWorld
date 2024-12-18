@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 public class Supernova implements ModInitializer
 {
 	public static final Logger LOGGER = LoggerFactory.getLogger("Supernova");
-	public static final String KEY_MAGIC_WORLD = "supernova";
+	public static final String SUPERNOVA = "supernova";
 
 	@Override
 	public void onInitialize()

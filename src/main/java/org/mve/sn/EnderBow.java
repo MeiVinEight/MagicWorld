@@ -33,7 +33,7 @@ public class EnderBow
 	 * <p>
 	 * [-1632247198, 89399974, 544791038, 129374438]
 	 */
-	private static final UUID UID = UUID.fromString("9EB5E262-0554-22A6-2078-D9FE07B618E6");
+	public static final UUID UID = UUID.fromString("9EB5E262-0554-22A6-2078-D9FE07B618E6");
 	private static final MethodHandle PACK_PARTICLE;
 
 	public static void collision(ProjectileEntity entity, HitResult result)
@@ -55,11 +55,11 @@ public class EnderBow
 		NbtComponent component = weapon.get(DataComponentTypes.CUSTOM_DATA);
 		if (component == null) return;
 		// Supernova.LOGGER.info("Component {}", component);
-		if (!component.contains(Supernova.KEY_MAGIC_WORLD)) return;
+		if (!component.contains(Supernova.SUPERNOVA)) return;
 		try
 		{
 			// Supernova.LOGGER.info("UUID {}", component.nbt.get(Supernova.KEY_MAGIC_WORLD));
-			NbtElement element = component.nbt.get(Supernova.KEY_MAGIC_WORLD);
+			NbtElement element = component.nbt.get(Supernova.SUPERNOVA);
 			if (element == null) return;
 			UUID uuid = NbtHelper.toUuid(element);
 			if (!EnderBow.UID.equals(uuid)) return;
