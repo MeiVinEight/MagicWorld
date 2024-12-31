@@ -20,7 +20,7 @@ public class AbstractSkeletonEntityMixin
 	{
 		// Supernova.LOGGER.info("Spawning skeleton", new Throwable());
 		AbstractSkeletonEntity _this = (AbstractSkeletonEntity) (Object) this;
-		// if (random.nextFloat() > 0.0625) return;
+		if (random.nextFloat() > 0.0625) return;
 		// Supernova.LOGGER.info("Spawning ender skeleton - {}", _this.getUuid());
 		ItemStack item = _this.getMainHandStack();
 		if (item == null) return;
