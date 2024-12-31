@@ -1,13 +1,12 @@
 package org.mve.sn;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtHelper;
+import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.network.packet.s2c.play.ParticleS2CPacket;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -18,12 +17,14 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.TeleportTarget;
+import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class EnderBow
@@ -48,6 +49,7 @@ public class EnderBow
 		if (owner == null) return;
 		// Supernova.LOGGER.info("Owner {}", owner);
 		// if (result.getType() == HitResult.Type.ENTITY && ((EntityHitResult) result).getEntity().equals(owner)) return;
+		/*
 		ItemStack weapon = entity.getWeaponStack();
 		if (weapon == null) return;
 		 // Supernova.LOGGER.info("Weapon {}", weapon);
@@ -68,6 +70,9 @@ public class EnderBow
 		{
 			return;
 		}
+		*/
+		if (!(entity instanceof ArrowEntity)) return;
+		if (!EnderBow.UID.equals(((SupernovaArrowEntity) entity).supernova())) return;
 
 		double prevX = owner.getX();
 		double prevY = owner.getY();
@@ -89,13 +94,14 @@ public class EnderBow
 
 	private static void teleport(ServerWorld world, Entity entity, Vec3d pos)
 	{
-		TeleportTarget target = new TeleportTarget(world, pos, Vec3d.ZERO, entity.getYaw(), entity.getPitch(), (e) -> {});
+		// TeleportTarget target = new TeleportTarget(world, pos, Vec3d.ZERO, entity.getYaw(), entity.getPitch(), (e) -> {});
 		if (entity instanceof PlayerEntity)
 		{
 			entity.stopRiding();
 		}
 		while (entity.getVehicle() != null) entity = entity.getVehicle();
-		entity.teleportTo(target);
+		entity.teleport(world, pos.x, pos.y, pos.z, Set.of(), entity.getYaw(), entity.getPitch());
+		// entity.teleportTo(target);
 	}
 
 	private static void particle(ServerWorld world, Entity entity)
@@ -178,6 +184,17 @@ public class EnderBow
 			);
 			*/
 		}
+	}
+
+	public static void arrow(ArrowEntity entity, World world, LivingEntity owner, CallbackInfo ci)
+	{
+		SupernovaArrowEntity supernova = (SupernovaArrowEntity) entity;
+		ItemStack stack = owner.getMainHandStack();
+		if (stack == null) return;
+		if (!(stack.getItem() instanceof RangedWeaponItem)) stack = owner.getOffHandStack();
+		if (stack == null) return;
+		if (stack.hasNbt() && stack.getOrCreateNbt().contains(Supernova.SUPERNOVA))
+			supernova.supernova(stack.getOrCreateNbt().getUuid(Supernova.SUPERNOVA));
 	}
 
 	static

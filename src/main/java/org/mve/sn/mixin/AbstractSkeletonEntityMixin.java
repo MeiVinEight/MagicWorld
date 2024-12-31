@@ -1,11 +1,8 @@
 package org.mve.sn.mixin;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import org.mve.sn.EnderBow;
@@ -23,19 +20,12 @@ public class AbstractSkeletonEntityMixin
 	{
 		// Supernova.LOGGER.info("Spawning skeleton", new Throwable());
 		AbstractSkeletonEntity _this = (AbstractSkeletonEntity) (Object) this;
-		if (random.nextFloat() > 0.0625) return;
+		// if (random.nextFloat() > 0.0625) return;
 		// Supernova.LOGGER.info("Spawning ender skeleton - {}", _this.getUuid());
 		ItemStack item = _this.getMainHandStack();
 		if (item == null) return;
 		if (item.getItem() != Items.BOW) return;
 
-		NbtComponent componentCustomData = item.get(DataComponentTypes.CUSTOM_DATA);
-		if (componentCustomData == null)
-		{
-			NbtCompound customData = new NbtCompound();
-			componentCustomData = NbtComponent.of(customData);
-			item.set(DataComponentTypes.CUSTOM_DATA, componentCustomData);
-		}
-		componentCustomData.nbt.putUuid(Supernova.SUPERNOVA, EnderBow.UID);
+		item.getOrCreateNbt().putUuid(Supernova.SUPERNOVA, EnderBow.UID);
 	}
 }

@@ -5,6 +5,7 @@
 	"mixins": [
 		"AbstractSkeletonEntityMixin",
 		"AnvilScreenHandlerMixin",
+		"ArrowEntityMixin",
 		"ItemStackMixin",
 		"PersistentProjectileEntityMixin"
 	],
