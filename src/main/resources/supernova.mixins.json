@@ -7,7 +7,14 @@
 		"AnvilScreenHandlerMixin",
 		"ArrowEntityMixin",
 		"ItemStackMixin",
-		"PersistentProjectileEntityMixin"
+		"PersistentProjectileEntityMixin",
+		"enchant.DamageEnchantmentMixin",
+		"enchant.EnchantmentMixin",
+		"enchant.LickEnchantmentMixin",
+		"enchant.LoyaltyEnchantmentMixin",
+		"enchant.PowerEnchantmentMixin",
+		"enchant.ProtectionEnchantmentMixin",
+		"enchant.SweepingEnchantmentMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
