@@ -14,7 +14,8 @@
 		"enchant.LoyaltyEnchantmentMixin",
 		"enchant.PowerEnchantmentMixin",
 		"enchant.ProtectionEnchantmentMixin",
-		"enchant.SweepingEnchantmentMixin"
+		"enchant.SweepingEnchantmentMixin",
+		"enchant.UnbreakingEnchantmentMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
