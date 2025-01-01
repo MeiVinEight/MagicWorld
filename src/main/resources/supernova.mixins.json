@@ -6,6 +6,7 @@
 		"AbstractSkeletonEntityMixin",
 		"AnvilScreenHandlerMixin",
 		"ArrowEntityMixin",
+		"CreeperEntityMixin",
 		"ItemStackMixin",
 		"PersistentProjectileEntityMixin",
 		"enchant.DamageEnchantmentMixin",
