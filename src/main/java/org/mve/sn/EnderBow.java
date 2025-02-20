@@ -80,15 +80,17 @@ public class EnderBow
 		ServerWorld world = (ServerWorld) entity.getWorld();
 		Vec3d pos = result.getPos();
 
-		SoundCategory category = SoundCategory.HOSTILE;
+		SoundCategory category = SoundCategory.PLAYERS;
 		SoundEvent sound = SoundEvents.ENTITY_ENDERMAN_TELEPORT;
 
-		world.playSound(null, prevX, prevY, prevZ, sound, category, 1.0F, 1.0F);
+		PlayerEntity playerOwner = owner instanceof PlayerEntity playerEntity ? playerEntity : null;
+		world.playSound(playerOwner, prevX, prevY, prevZ, sound, category, 1.0F, 1.0F);
 		EnderBow.particle(world, owner);
 
 		EnderBow.teleport(world, owner, pos);
+		if (playerOwner != null) playerOwner.playSound(sound, category, 1.0F, 1.0F);
 
-		world.playSound(null, pos.x, pos.y, pos.z, sound, category, 1.0F, 1.0F);
+		// world.playSound(null, pos.x, pos.y, pos.z, sound, category, 1.0F, 1.0F);
 		EnderBow.particle(world, entity);
 	}
 
