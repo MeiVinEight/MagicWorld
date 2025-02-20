@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(DamageEnchantment.class)
 public class DamageEnchantmentMixin
 {
-	@Inject(at = @At("RETURN"), method = "Lnet/minecraft/enchantment/DamageEnchantment;getMaxLevel()I", cancellable = true)
+	@Inject(at = @At("RETURN"), method = "getMaxLevel()I", cancellable = true)
 	public void getMaxLevel(CallbackInfoReturnable<Integer> cir)
 	{
 		DamageEnchantment _this = (DamageEnchantment)(Object)this;
