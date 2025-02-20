@@ -11,7 +11,7 @@
 		"PersistentProjectileEntityMixin",
 		"enchant.DamageEnchantmentMixin",
 		"enchant.EnchantmentMixin",
-		"enchant.LickEnchantmentMixin",
+		"enchant.LuckEnchantmentMixin",
 		"enchant.LoyaltyEnchantmentMixin",
 		"enchant.PowerEnchantmentMixin",
 		"enchant.ProtectionEnchantmentMixin",

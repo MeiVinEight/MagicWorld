@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LuckEnchantment.class)
-public class LickEnchantmentMixin
+public class LuckEnchantmentMixin
 {
 	@Inject(at = @At("RETURN"), method = "getMaxLevel()I", cancellable = true)
 	public void getMaxLevel(CallbackInfoReturnable<Integer> cir)
